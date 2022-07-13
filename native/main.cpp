@@ -65,6 +65,8 @@ EntryPoint loadClr()
     void *loadFunc = nullptr;
     error = getRuntimeDelegate(cxt, hdt_load_assembly_and_get_function_pointer, &loadFunc);
 
+    close(cxt);
+    
     assert(error == 0 && loadFunc != nullptr);
 
     auto load = load_assembly_and_get_function_pointer_fn(loadFunc);
@@ -113,7 +115,7 @@ int main(int, char **)
     std::cout << "Starting...\n";
     auto entryPoint = loadClr();
     std::cout << "clr started\n";
-    // waitForDebugger();
+    waitForDebugger();
     entryPoint();
     std::cout << "entry point called\n";
 }
